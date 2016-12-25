@@ -1,0 +1,7 @@
+---
+
+- name: raw update 
+  raw: sudo apt-get update
+
+- name: raw install # ansible needs python 2 and ubuntu 16 doesn't have it
+  raw: sudo apt-get -y install python-simplejson

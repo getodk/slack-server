@@ -1,0 +1,11 @@
+---
+
+- name: set hostname
+  hostname:
+    name: seattle
+
+- name: template hosts
+  template: 
+    src: hosts.j2
+    dest: /etc/hosts
+    mode: '644'

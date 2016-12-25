@@ -1,0 +1,18 @@
+---
+
+- name: install
+  apt: 
+    pkg: unattended-upgrades 
+    state: installed
+
+- name: copy 20auto-upgrades
+  copy: 
+    src: 20auto-upgrades 
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    mode: '644'
+
+- name: run security-updates
+  command: unattended-upgrades -v
+
+- name: run autoremove
+  command: apt autoremove -y
