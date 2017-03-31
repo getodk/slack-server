@@ -9,7 +9,7 @@
   copy: 
     src: 20auto-upgrades 
     dest: /etc/apt/apt.conf.d/20auto-upgrades
-    mode: '644'
+    mode: 0644
 
 - name: run security-updates
   command: unattended-upgrades -v

@@ -1,0 +1,67 @@
+---
+
+- name: add slack.opendatakit.org.conf
+  copy: 
+    src: slack.opendatakit.org.conf
+    dest: /etc/nginx/sites-available/slack.opendatakit.org.conf
+
+- name: active slack.opendatakit.org
+  file: 
+    src: /etc/nginx/sites-available/slack.opendatakit.org.conf
+    dest: /etc/nginx/sites-enabled/slack.opendatakit.org.conf
+    state: link
+
+- name: restart
+  service: 
+    name: nginx
+    state: restarted
+
+- name: download nodejs script
+  get_url:
+    url: https://deb.nodesource.com/setup_6.x
+    dest: /tmp/nodesource_setup.sh
+
+- name: prepare nodejs
+  command: bash /tmp/nodesource_setup.sh
+
+- name: install packages
+  apt: 
+    pkg: '{{ item }}'
+  with_items:
+    - python-pip
+    - nodejs
+
+- name: install python packages
+  pip:
+    name: slackclient
+    extra_args: --upgrade
+
+- name: install slackin
+  npm:
+    name: slackin
+    global: yes
+
+- name: copy welcomebot.py
+  copy: 
+    src: welcomebot.py
+    dest: /usr/local/bin/welcomebot.py
+    mode: 0755
+
+- name: template services 
+  template: 
+    src: '{{ item }}.j2'
+    dest: '/etc/systemd/system/{{ item }}'
+    mode: 0644
+  with_items:
+    - slackin.service
+    - welcomebot.service
+
+- name: reload, enable, and start
+  systemd:
+    name: '{{ item }}'
+    daemon_reload: yes
+    enabled: yes
+    state: started
+  with_items:
+    - slackin.service
+    - welcomebot.service

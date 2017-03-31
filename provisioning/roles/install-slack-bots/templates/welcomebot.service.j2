@@ -1,0 +1,9 @@
+[Unit]
+Description=welcomebot
+
+[Service]
+ExecStart=/usr/bin/python /usr/local/bin/welcomebot.py {{ lookup('file', 'secrets/welcomebot.token') }}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

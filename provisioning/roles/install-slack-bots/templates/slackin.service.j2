@@ -1,0 +1,9 @@
+[Unit]
+Description=slackin
+
+[Service]
+ExecStart=/usr/bin/slackin opendatakit {{ lookup('file', 'secrets/slackin.token') }}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

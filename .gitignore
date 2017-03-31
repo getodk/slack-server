@@ -1,3 +1,4 @@
-secrets/
 *.retry
 .DS_Store
+.vagrant
+secrets/

@@ -1,10 +1,11 @@
-#!/bin/env python
+#!/usr/bin/env python
 
+import sys
 import time
 import datetime
 from slackclient import SlackClient
 
-BOT_TOKEN='{{ lookup('file', 'secrets/welcomebot.token') }}'
+BOT_TOKEN=sys.argv[1]
 WELCOME_MESSAGE="Welcome to the ODK Slack, @{}! There are just three things you need to be aware of.\n\n1. We've automatically added you to some of the more active channels (e.g., #collect-code, #build-code), but make sure to browse and join other channels that interest you (e.g., #meta, #random).\n\n2. Everything that happens on the public Slack channels is archived and searchable at http://opendatakit.slackarchive.io. Private channels and private messages are never publicly archived.\n\n3. To ensure the chat remains a valuable resource, please use the appropriate channels for discussions and refrain from asking non-developer support questions about form design or tool configuration.\n\nSo yeah, that's it. Please introduce yourself to the community in the #general channel and welcome again to the ODK Slack!"
 
 def main():
