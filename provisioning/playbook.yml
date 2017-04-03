@@ -12,5 +12,6 @@
     - set-hostname
     - install-unattended-upgrades
     - install-nginx
+    - install-certbot
     - install-slack-bots
     
