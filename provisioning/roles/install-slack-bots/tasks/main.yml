@@ -1,14 +1,14 @@
 ---
 
-- name: add slack.opendatakit.org.conf
+- name: add slack nginx conf
   copy: 
-    src: slack.opendatakit.org.conf
-    dest: /etc/nginx/sites-available/slack.opendatakit.org.conf
+    src: slack
+    dest: /etc/nginx/sites-available/slack
 
 - name: active slack.opendatakit.org
   file: 
-    src: /etc/nginx/sites-available/slack.opendatakit.org.conf
-    dest: /etc/nginx/sites-enabled/slack.opendatakit.org.conf
+    src: /etc/nginx/sites-available/slack
+    dest: /etc/nginx/sites-enabled/slack
     state: link
 
 - name: restart
